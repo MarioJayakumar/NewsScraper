@@ -13,6 +13,8 @@ Spiders:
 
 ABCSpider-> ABC Go News
 
+BaltimoreFishbowlSpider -> baltimorefishbowl.com
+
 CNNSpider -> cnn.com
 
 NJSpider -> nj.com
