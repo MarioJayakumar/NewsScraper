@@ -1,2 +1,3 @@
 newsscraper/newsscraper/chromedriver
 *.pyc
+newsscraper/Scraped/**/*.json
