@@ -3,36 +3,34 @@ from scrapy.crawler import CrawlerProcess
 import os
 import json
 from scrapy_selenium import SeleniumRequest
+from .GenericNewsSpider import GenericNewsSpider
 
-class ABCSpider(scrapy.Spider):
-    name="ABC"
-    start_urls = ["https://abcnews.go.com"]
+class ABCSpider(GenericNewsSpider):
+    def __init__(self, **kwargs):
+        self.name = "ABC"
+        self.starturl = "https://abcnews.go.com/"
+        super().__init__(**kwargs)
 
-    def start_requests(self):
-        yield SeleniumRequest(url="https://abcnews.go.com", wait_time=3, callback=self.parse)
-
-    def parse(self, response):
-        # first check if this is a page
+    # should be overridden
+    def has_main_content(self, response):
         all_text = response.css('p::text').getall()
         headline = response.css('h1.Article__Headline__Title::text').getall()
-        if len(all_text) > 0 and len(headline) > 0:
-            # get title
-            headline = headline[0]
-            # select classes of zn-body__paragraph
-            final_text = ''
-            for text in all_text:
-                final_text += text
-        
-            filename = headline.replace(" ", "").replace("\'", "")
-            output_name = "Scraped/ABC/" + filename + ".json"
-            output_json = {}
-            output_json["title"] = headline
-            output_json["body"] = final_text
-            with open(output_name, "w+") as output_fh:
-                json.dump(output_json, output_fh)
+        return len(all_text) > 0 and len(headline) > 0
 
-        # follow links in page
-        for link in response.xpath("//a/@href").getall():
-            link = response.urljoin(link)
-            if link.startswith(response.url):
-                yield SeleniumRequest(url=link, wait_time=3, callback=self.parse)
+    # returns list of content strings
+    def get_response_main_content_text(self, response):
+        return response.css('p::text').getall()
+
+    # return single string for headline
+    def get_response_main_content_headline(self, response):
+        return response.css('h1.Article__Headline__Title::text').getall()[0]
+
+    # return single datetime object
+    def get_response_publication_date(self, response):
+        timeBoxes = response.css('div.Byline__Meta--publishDate::text').get(default="")
+        return timeBoxes
+
+    # return list of href objects
+    def get_response_href_list(self, response):
+        return response.xpath("//a/@href").getall()
+
