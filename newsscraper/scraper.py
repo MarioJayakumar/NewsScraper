@@ -8,13 +8,15 @@ from newsscraper.spiders.ABCSpider import ABCSpider
 from newsscraper.spiders.BaltimoreFishbowlSpider import BaltimoreFishbowlSpider
 from newsscraper.spiders.NJSpider import NJSpider
 from newsscraper.spiders.NPRSpider import NPRSpider
+from newsscraper.spiders.WJLASpider import WJLASpider
+from newsscraper.spiders.WKYTSpider import WKYTSpider
 from scrapy.utils.project import get_project_settings
 import argparse
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--spider", default="CNN", help="Which spider to use. Options are [ABC, BaltimoreFishbowl, CNN, NJ, NPR]")
+    parser.add_argument("--spider", default="CNN", help="Which spider to use. Options are [ABC, BaltimoreFishbowl, CNN, NJ, NPR, WJLA, WKYT]")
     args = parser.parse_args()
     spider_name = args.spider
 
@@ -30,4 +32,10 @@ if __name__ == "__main__":
         process.crawl(NJSpider)
     elif spider_name == "NPR":
         process.crawl(NPRSpider)
+    elif spider_name == "WJLA":
+        process.crawl(WJLASpider)
+    elif spider_name == "WKYT":
+        process.crawl(WKYTSpider)        
+    else:
+        print("Unknown spider passed")
     process.start()
