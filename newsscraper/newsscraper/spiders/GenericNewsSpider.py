@@ -46,7 +46,7 @@ class GenericNewsSpider(scrapy.Spider):
 
             pub_date = self.get_response_publication_date(response)
         
-            filename = headline.replace(" ", "").replace("\'", "").replace(".", "")
+            filename = headline.replace(" ", "").replace("\'", "").replace(".", "").replace('\r', "").replace("\n", "")
             output_name = "Scraped/" + self.name + "/" + filename + ".json"
             output_json = {}
             output_json["title"] = headline
