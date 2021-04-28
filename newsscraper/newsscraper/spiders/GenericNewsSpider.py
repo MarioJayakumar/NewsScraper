@@ -3,6 +3,7 @@ from scrapy.crawler import CrawlerProcess
 import os
 import re
 import json
+import datetime
 from scrapy_selenium import SeleniumRequest
 
 # command line args
@@ -53,6 +54,10 @@ class GenericNewsSpider(scrapy.Spider):
             output_json["body"] = final_text
             output_json["url"] = response.request.url
             output_json["date"] = pub_date
+
+            local_time = datetime.datetime.now().isoformat()
+            output_json["access_date"] = local_time
+
             with open(output_name, "w+") as output_fh:
                 json.dump(output_json, output_fh)
 
