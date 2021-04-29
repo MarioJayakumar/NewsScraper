@@ -4,6 +4,7 @@ import os
 import re
 import json
 from scrapy_selenium import SeleniumRequest
+import uuid
 
 # command line args
 class GenericNewsSpider(scrapy.Spider):
@@ -46,13 +47,14 @@ class GenericNewsSpider(scrapy.Spider):
 
             pub_date = self.get_response_publication_date(response)
         
-            filename = headline.replace(" ", "").replace("\'", "").replace(".", "")
-            output_name = "Scraped/" + self.name + "/" + filename + ".json"
+            unique_id = uuid.uuid4()
+            output_name = "Scraped/" + self.name + "/" + str(unique_id) + ".json"
             output_json = {}
             output_json["title"] = headline
             output_json["body"] = final_text
             output_json["url"] = response.request.url
             output_json["date"] = pub_date
+            output_json['UUID'] = str(unique_id)
             with open(output_name, "w+") as output_fh:
                 json.dump(output_json, output_fh)
 

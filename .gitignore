@@ -2,3 +2,5 @@ newsscraper/newsscraper/chromedriver
 *.pyc
 .vscode/*
 newsscraper/Scraped/**/*.json
+processed/*
+*csv
