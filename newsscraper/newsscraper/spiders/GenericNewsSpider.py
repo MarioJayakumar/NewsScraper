@@ -8,7 +8,6 @@ from scrapy_selenium import SeleniumRequest
 
 # command line args
 class GenericNewsSpider(scrapy.Spider):
-    name="Generic"
     doNotScrape = [] #list of regex paths
 
     def start_requests(self):
