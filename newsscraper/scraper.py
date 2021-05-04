@@ -6,10 +6,13 @@ from scrapy_selenium import SeleniumRequest
 from newsscraper.spiders.CNNSpider import CNNSpider
 from newsscraper.spiders.ABCSpider import ABCSpider
 from newsscraper.spiders.BaltimoreFishbowlSpider import BaltimoreFishbowlSpider
+from newsscraper.spiders.NBC_PGSpider import NBC_PGSpider
 from newsscraper.spiders.NJSpider import NJSpider
 from newsscraper.spiders.NPRSpider import NPRSpider
+from newsscraper.spiders.PGPDSpider import PGPDSpider
 from newsscraper.spiders.WJLASpider import WJLASpider
 from newsscraper.spiders.WKYTSpider import WKYTSpider
+from newsscraper.spiders.WTOP_PGSpider import WTOP_PGSpider
 from scrapy.utils.project import get_project_settings
 import argparse
 
