@@ -1,0 +1,10 @@
+timeout 10m python3 scraper.py --spider ABC
+timeout 10m python3 scraper.py --spider BaltimoreFishbowl
+timeout 10m python3 scraper.py --spider CNN
+timeout 10m python3 scraper.py --spider NBC_PG
+timeout 10m python3 scraper.py --spider NJ
+timeout 10m python3 scraper.py --spider NPR
+timeout 10m python3 scraper.py --spider PGPD
+timeout 10m python3 scraper.py --spider WJLA
+timeout 10m python3 scraper.py --spider WKYT
+timeout 10m python3 scraper.py --spider WTOP_PG
