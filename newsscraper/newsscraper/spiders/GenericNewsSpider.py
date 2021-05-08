@@ -34,6 +34,14 @@ class GenericNewsSpider(scrapy.Spider):
         return []
 
     def parse(self, response):
+
+        # only do this check on the first url
+        if response.request.url == self.starturl:
+            output_dir = "Scraped/" + self.name
+            if not os.path.isdir(output_dir):
+                print("Creating output directory called", output_dir)
+                os.mkdir(output_dir)
+
         # first check if this is a page
         if self.has_main_content(response):
             # get title
