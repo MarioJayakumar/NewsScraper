@@ -17,13 +17,14 @@ from newsscraper.spiders.FoxBaltimoreSpider import FoxBaltimoreSpider
 from newsscraper.spiders.WBALTVSpider import WBALTVSpider
 from newsscraper.spiders.WJZSpider import WJZSpider
 from newsscraper.spiders.WMARSpider import WMARSpider
+from newsscraper.spiders.BaltimoreJewishTimesSpider import BaltimoreJewishTimesSpider
 from scrapy.utils.project import get_project_settings
 import argparse
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--spider", default="all", help="Which spider to use. Options are [all, ABC, BaltimoreFishbowl, FoxBaltimore, CNN, NJ, NPR, WBALTV, WJLA, WJZ, WKYT, WMAR]. If all selected, then all scrapers run.")
+    parser.add_argument("--spider", default="all", help="Which spider to use. Options are [all, ABC, BaltimoreFishbowl, BaltimoreJewishTimes, BIZJournals, FoxBaltimore, CNN, NJ, NPR, WBALTV, WJLA, WJZ, WKYT, WMAR]. If all selected, then all scrapers run.")
     args = parser.parse_args()
     spider_name = args.spider
 
@@ -35,6 +36,8 @@ if __name__ == "__main__":
             process.crawl(ABCSpider)
         elif spider_name == "BaltimoreFishbowl":
             process.crawl(BaltimoreFishbowlSpider)
+        elif spider_name == "BaltimoreJewishTimes":
+            process.crawl(BaltimoreJewishTimesSpider)                       
         elif spider_name == "FoxBaltimoreFishbowl":
             process.crawl(FoxBaltimoreSpider)            
         elif spider_name == "CNN":
@@ -60,6 +63,7 @@ if __name__ == "__main__":
         process = CrawlerProcess(get_project_settings())
         process.crawl(ABCSpider)
         process.crawl(BaltimoreFishbowlSpider)
+        process.crawl(BaltimoreJewishTimesSpider)
         process.crawl(FoxBaltimoreSpider)
         process.crawl(CNNSpider)
         process.crawl(NBC_PGSpider)
