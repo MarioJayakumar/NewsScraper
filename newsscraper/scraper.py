@@ -5,6 +5,7 @@ import json
 from scrapy_selenium import SeleniumRequest
 from newsscraper.spiders.CNNSpider import CNNSpider
 from newsscraper.spiders.ABCSpider import ABCSpider
+from newsscraper.spiders.AfroSpider import AfroSpider
 from newsscraper.spiders.BaltimoreFishbowlSpider import BaltimoreFishbowlSpider
 from newsscraper.spiders.NJSpider import NJSpider
 from newsscraper.spiders.NPRSpider import NPRSpider
@@ -16,7 +17,7 @@ import argparse
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--spider", default="CNN", help="Which spider to use. Options are [ABC, BaltimoreFishbowl, CNN, NJ, NPR, WJLA, WKYT]")
+    parser.add_argument("--spider", default="Afro", help="Which spider to use. Options are [ABC, Afro, BaltimoreFishbowl, CNN, NJ, NPR, WJLA, WKYT]")
     args = parser.parse_args()
     spider_name = args.spider
 
@@ -24,6 +25,8 @@ if __name__ == "__main__":
 
     if spider_name == "ABC":
         process.crawl(ABCSpider)
+    elif spider_name == "Afro":
+        process.crawl(AfroSpider)
     elif spider_name == "BaltimoreFishbowl":
         process.crawl(BaltimoreFishbowlSpider)
     elif spider_name == "CNN":
@@ -35,7 +38,7 @@ if __name__ == "__main__":
     elif spider_name == "WJLA":
         process.crawl(WJLASpider)
     elif spider_name == "WKYT":
-        process.crawl(WKYTSpider)        
+        process.crawl(WKYTSpider)
     else:
         print("Unknown spider passed")
     process.start()

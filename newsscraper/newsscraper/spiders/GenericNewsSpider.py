@@ -55,6 +55,9 @@ class GenericNewsSpider(scrapy.Spider):
             output_json["url"] = response.request.url
             output_json["date"] = pub_date
             output_json['UUID'] = str(unique_id)
+
+            output_json = self.enricher.enrich_json(output_json, self.name)
+
             with open(output_name, "w+") as output_fh:
                 json.dump(output_json, output_fh)
 
