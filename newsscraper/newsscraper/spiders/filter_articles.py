@@ -12,18 +12,37 @@ class JsonEnricher():
     def __init__(self):
         self.geolocator = Nominatim(user_agent="news_scraper")
         self.nlp = spacy.load("en_core_web_sm")
+
         self.matcher = PhraseMatcher(self.nlp.vocab, attr="LOWER")
-        terms = ["police", "constable", "sheriff", "peace officer", "law enforcement"]
-        patterns = [self.nlp.make_doc(text) for text in terms]
-        self.matcher.add("PolicePersons", patterns)
 
-        terms = ["detain", "arrest", "unarmed", "handcuff"]
-        patterns = [self.nlp.make_doc(text) for text in terms]
-        self.matcher.add("PoliceActions", patterns)
+        zeroTerms =[]
+        oneTerms = []
+        twoTerms = []
+        threeTerms = []
+        with open('misconduct_lexicon.txt', 'r') as misconductLexicon:
+            lines = misconductLexicon.readlines()
+            for line in lines:
+                term, weight = line.strip().split('\t')
+                if int(weight) == 0:
+                    zeroTerms.append(term)
+                elif int(weight) == 1:
+                    oneTerms.append(term)
+                elif int(weight) == 2:
+                    twoTerms.append(term)
+                elif int(weight) == 3:
+                    threeTerms.append(term)
 
-        terms = ["LPD"]
-        patterns = [self.nlp.make_doc(text) for text in terms]
-        self.matcher.add("PoliceOrganizations", patterns)
+        zeroPatterns = [self.nlp.make_doc(text) for text in zeroTerms]
+        self.matcher.add("ZeroPatterns", zeroPatterns)
+
+        onePatterns = [self.nlp.make_doc(text) for text in oneTerms]
+        self.matcher.add("OnePatterns", onePatterns)
+
+        twoPatterns = [self.nlp.make_doc(text) for text in twoTerms]
+        self.matcher.add("TwoPatterns", twoPatterns)
+
+        threePatterns = [self.nlp.make_doc(text) for text in threeTerms]
+        self.matcher.add("ThreePatterns", threePatterns)
 
         self.monthMap = {
             'jan': 1,
@@ -167,7 +186,17 @@ class JsonEnricher():
         matches = self.matcher(doc)
         sentStarts = []
         sentEnds = []
+        misconductScore = 0
         if len(matches) > 0 and 'Terms of Use Agreement' not in artDict['title']:
+            for matchId, _, _ in matches:
+                matchType = nlp.vocab.strings[matchId]
+                if matchType == 'OnePatterns':
+                    misconductScore += 1
+                elif matchType == 'TwoPatterns':
+                    misconductScore += 2
+                elif matchType == 'ThreePatterns':
+                    misconductScore += 3
+
             persons = []
             orgs = []
             locations = []
@@ -244,7 +273,7 @@ class JsonEnricher():
             artDict['locations'] = locations
             artDict['addresses'] = addresses
             artDict['coords'] = coordTuples
-            artDict['misconductProb'] = 0.5
+            artDict['misconductScore'] = misconductScore
 
             artDict['date'] = self.get_unix_time(artDict['date'], sourceName)
             artDict['access_date']  = self.get_unix_time(artDict['access_date'], BaltimoreFishbowl)
