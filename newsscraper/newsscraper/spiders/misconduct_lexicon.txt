@@ -1,0 +1,311 @@
+abuse	1
+abused	1
+abuse of authority	3
+abuse of power	3
+accountable	2
+accountability	2
+against police	2
+against the police	2
+allegation	1
+alleged	1
+allegedly	1
+arbitrary arrest	3
+arrested illegally	3
+arrest	0
+arrested	0
+bad police	3
+bias	2
+biased	2
+biased law	2
+biased police	3
+black life	3
+black man	2
+black men	2
+blanket immunity	2
+blm	3
+blue code of silence	3
+body camera	1
+brutality	2
+camera footage	1
+chauvin	3
+choke	1
+choked	1
+code of conduct	2
+coerce	1
+coerced	1
+coercion	1
+complain	2
+complaint	2
+complaint against the police	3
+consent decree	2
+constable	0
+constitutional right	3
+contempt of cop	3
+controversial arrest	3
+coordination of testimony	3
+corrupt	2
+corrupt cop	3
+corrupt law	3
+corrupt police	3
+corruption	2
+cover up	2
+cover it up	2
+covered it up	2
+crooked cop	3
+civil action	2
+criminal investigation	1
+delete evidence	3
+derek chauvin	3
+destroy evidence	3
+detain	0
+detained	0
+discipline	1
+disciplined	1
+disciplinary action	3
+disciplinary decision	3
+disciplinary hearing	2
+discrimination	2
+disregard for human	3
+equality	2
+equality act	3
+excessive force	3
+excessive use of force	3
+fabricate evidence	3
+fabricated evidence	3
+fabrication of evidence	3
+fail to investigate	3
+failed investigation	3
+failed to investigate	3
+failure to investigate	3
+false accusation	3
+false arrest	3
+false conviction	3
+false detention	3
+false imprisonment	3
+false incarceration	3
+false prosecution	3
+false testimony	2
+falsely accused	3
+falsely arrested	3
+falsely detained	3
+falsely convicted	3
+falsely imprisoned	3
+falsely incarcerated	3
+falsely prosecuted	3
+falsification of evidence	3
+fatal	1
+fatal arrest	2
+fatal shot	2
+fatal shooting	2
+fatally shot	2
+favorable statement	2
+fired	2
+fled	1
+fleeing	1
+floyd	3
+force confession	3
+forced by police	3
+forced confession	3
+forced to confess	3
+forced to testify	3
+fourth amendment	3
+fifth amendment	3
+george floyd	3
+human right	2
+ill treated	3
+ill treatment	3
+illegal	1
+illegal arrest	3
+illegal detention	3
+illegal seizure	3
+illegal stop	3
+illegal traffic stop	3
+illegally	1
+illegally arrest	3
+illegally arrested	3
+illegally detained	3
+illegally seize	3
+immigrant	1
+inappropriate conduct	3
+injust	2
+injustice	2
+inquest	2
+internal affair	3
+internal investigation	3
+intimidate	2
+intimidated	2
+intimidation	2
+janisha fonville	3
+lack of evidence	2
+lack of motif	2
+lawsuit	1
+lawsuit settlement	2
+legal action	1
+loss of liberty	3
+malpractice	2
+malicious prosecution	3
+maltreatment	3
+man of color	3
+men of color	3
+minimal supervision	2
+miscarriage of justice	3
+misconduct	3
+misdeed	2
+misfeasance	2
+misuse of power	3
+misuse of private information	2
+mistreatment	2
+neglect to investigate	3
+neglected to investigate	3
+no evidence	1
+no knock	2
+obstruction of justice	1
+obtain confession	1
+obtained confession	1
+off duty misconduct	3
+officer involved shooting	2
+oiprd	3
+outcry	3
+peace officer	0
+perjure	2
+perjury	2
+plant evidence	3
+planted evidence	3
+planting evidence	3
+police	0
+police abuse	3
+police act	2
+police brutality	3
+police code	2
+police complaint	3
+police corruption	3
+police custody	1
+police decision	1
+police force	1
+police liability	3
+police lying	3
+police negligence	3
+police perjury	3
+police power	2
+police raid	1
+police raided	1
+police reform	3
+police review	2
+police scandal	3
+police shooting	2
+police stop	1
+police victim	3
+police violation	3
+police violence	3
+police wrongdoing	3
+power abuse	3
+power trip	3
+pressured	2
+protest	2
+public complaint	2
+public outcry	2
+racial discrimination	2
+racial injustice	2
+racial profiling	2
+racism	2
+racist	2
+record police	2
+recorded police	2
+recording police	2
+recording of law enforcement	2
+reduced pay	3
+refuse to obey	2
+refused to obey	2
+refusing to obey	2
+say their name	3
+scandal	2
+selective enforcement	3
+sexual assault	1
+sexual favor	2
+sexual misconduct	1
+sheriff	0
+spoliation of evidence	3
+sues police	3
+sued police	3
+suspended	3
+suspended pay	3
+suspension	2
+suspension without pay	3
+systemic violation	3
+tamper	1
+tampered	1
+tampering	1
+taser	2
+tasered	2
+ticket fixing	3
+traffic stop	1
+torture	1
+tortured	1
+unarmed	2
+under investigation	1
+unethical	2
+unlawful	2
+unlawful accusation	3
+unlawful act	2
+unlawful act or omission	3
+unlawful arrest	3
+unlawful conviction	3
+unlawful detention	3
+unlawful discrimination	3
+unlawful entry	2
+unlawful imprisonment	3
+unlawful killing	3
+unlawful order	2
+unlawful police	3
+unlawful search	3
+unlawful stop	3
+unlawful traffic stop	3
+unlawful use of force	3
+unlawful use of violence	3
+unlawful violence	3
+unlawfully	2
+unlawfully accused	3
+unlawfully arrested	3
+unlawfully convicted	3
+unlawfully detained	3
+unlawfully held	3
+unnecessary force	3
+unreasonable force	3
+unreasonable search	3
+unreasonable stop	3
+unreasonable traffic stop	3
+unwarranted	2
+use excessive force	3
+use of excessive force	3
+used excessive force	3
+use of force	2
+using excessive force	3
+victim of police	3
+violation	1
+violation of human right	3
+violation of civil right	3
+violence	2
+violent traffic stop	2
+wiretap	1
+wiretapping	1
+witness coaching	2
+witness intimidation	2
+witness tampering	2
+wrongful arrest	3
+wrongful death	3
+wrongful conviction	3
+wrongful prosecution	3
+wrongfully accused	3
+wrongfully arrested	3
+wrongfully detained	3
+wrongfully convicted	3
+wrongfully imprisoned	3
+wrongfully incarcerated	3
+wrongfully prosecuted	3
+wrongfully searched	3
+wrongfully stoped	3
+wrongly	1
+wrongly accused	3
+wrongly convicted	3
+wrongly imprisoned	3
+wrongly incarcerated	3
