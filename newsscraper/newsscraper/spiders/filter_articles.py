@@ -276,7 +276,7 @@ class JsonEnricher():
             artDict['misconductScore'] = misconductScore
 
             artDict['date'] = self.get_unix_time(artDict['date'], sourceName)
-            artDict['access_date']  = self.get_unix_time(artDict['access_date'], BaltimoreFishbowl)
+            artDict['access_date']  = self.get_unix_time(artDict['access_date'], "BaltimoreFishbowl")
 
             if artDict['date'] is None:
                 artDict['date'] = artDict['access_date']
