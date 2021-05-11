@@ -6,10 +6,15 @@ import json
 import datetime
 from scrapy_selenium import SeleniumRequest
 import uuid
+from .filter_articles import JsonEnricher
 
 # command line args
 class GenericNewsSpider(scrapy.Spider):
     doNotScrape = [] #list of regex paths
+
+    def __init__(self, **kwargs):
+        self.enricher = JsonEnricher()
+        super().__init__(**kwargs)
 
     def start_requests(self):
         yield SeleniumRequest(url=self.starturl, wait_time=3, callback=self.parse)

@@ -12,7 +12,7 @@ class JsonEnricher():
     def __init__(self):
         self.geolocator = Nominatim(user_agent="news_scraper")
         self.nlp = spacy.load("en_core_web_sm")
-        self.matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
+        self.matcher = PhraseMatcher(self.nlp.vocab, attr="LOWER")
         terms = ["police", "constable", "sheriff", "peace officer", "law enforcement"]
         patterns = [self.nlp.make_doc(text) for text in terms]
         self.matcher.add("PolicePersons", patterns)
