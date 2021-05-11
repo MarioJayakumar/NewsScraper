@@ -3,12 +3,12 @@ from scrapy.crawler import CrawlerProcess
 import os
 import re
 import json
+import datetime
 from scrapy_selenium import SeleniumRequest
 import uuid
 
 # command line args
 class GenericNewsSpider(scrapy.Spider):
-    name="Generic"
     doNotScrape = [] #list of regex paths
 
     def start_requests(self):
@@ -35,6 +35,14 @@ class GenericNewsSpider(scrapy.Spider):
         return []
 
     def parse(self, response):
+
+        # only do this check on the first url
+        if response.request.url == self.starturl:
+            output_dir = "Scraped/" + self.name
+            if not os.path.isdir(output_dir):
+                print("Creating output directory called", output_dir)
+                os.mkdir(output_dir)
+
         # first check if this is a page
         if self.has_main_content(response):
             # get title
@@ -55,6 +63,9 @@ class GenericNewsSpider(scrapy.Spider):
             output_json["url"] = response.request.url
             output_json["date"] = pub_date
             output_json['UUID'] = str(unique_id)
+
+            local_time = datetime.datetime.now().isoformat()
+            output_json["access_date"] = local_time
 
             output_json = self.enricher.enrich_json(output_json, self.name)
 

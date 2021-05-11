@@ -40,9 +40,8 @@ class JsonEnricher():
             'december': 12,
         }
 
-    def get_unix_time(self, sourceName):
+    def get_unix_time(self, dateString, sourceName):
         if sourceName == 'ABC':
-            dateString = artDict['date']
             if len(dateString.split(' ')) == 5:
                 month, day, year, timeA, timeB = dateString.split(' ')
                 monthNum = str(self.monthMap[month.lower()])
@@ -63,7 +62,6 @@ class JsonEnricher():
                 return unixTime
 
         elif sourceName == 'BaltimoreFishbowl':
-            dateString = artDict['date']
             datePortion, timePortion = dateString.split('T')
             unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
 
@@ -76,7 +74,6 @@ class JsonEnricher():
             return unixTime
 
         elif sourceName == 'NJ':
-            dateString = artDict['date']
             datePortion, timePortion = dateString[:10], dateString[-8:]
             unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
 
@@ -89,7 +86,6 @@ class JsonEnricher():
             return unixTime
 
         elif sourceName == 'NPR':
-            dateString = artDict['date']
             if len(dateString.split(' ')) == 2:
                 datePortion, timePortion = dateString.split('T')
                 unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
@@ -190,8 +186,8 @@ class JsonEnricher():
             artDict['coords'] = coordTuples
             artDict['misconductProb'] = 0.5
 
-            artDict['date'] = self.get_unix_time(sourceName)
-            artDict['access_date']  = artDict['date']
+            artDict['date'] = self.get_unix_time(artDict['date'], sourceName)
+            artDict['access_date']  = self.get_unix_time(artDict['access_date'], BaltimoreFishbowl)
         
         return artDict
 
