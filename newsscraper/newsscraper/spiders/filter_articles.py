@@ -26,25 +26,27 @@ class JsonEnricher():
         self.matcher.add("PoliceOrganizations", patterns)
 
         self.monthMap = {
-            'january': 1,
-            'february': 2,
-            'march': 3,
-            'april': 4,
+            'jan': 1,
+            'feb': 2,
+            'mar': 3,
+            'apr': 4,
             'may': 5,
-            'june': 6,
-            'july': 7,
-            'august': 8,
-            'september': 9,
-            'october': 10,
-            'november': 11,
-            'december': 12,
+            'jun': 6,
+            'jul': 7,
+            'aug': 8,
+            'sep': 9,
+            'oct': 10,
+            'nov': 11,
+            'dec': 12,
         }
+
+        self.baltimoreLikeSources = ['BaltimoreFishbowl', 'BaltimoreJewishTimes', 'CNN', 'FoxBaltimore', 'NPR', 'WBLATV', 'WJLA', ]
 
     def get_unix_time(self, dateString, sourceName):
         if sourceName == 'ABC':
             if len(dateString.split(' ')) == 5:
                 month, day, year, timeA, timeB = dateString.split(' ')
-                monthNum = str(self.monthMap[month.lower()])
+                monthNum = str(self.monthMap[month.lower()[:3]])
                 day = day.replace(',', '')
                 year = year.replace(',', '')
                 slashDate = day + '/' + monthNum + '/' + year
@@ -61,17 +63,18 @@ class JsonEnricher():
 
                 return unixTime
 
-        elif sourceName == 'BaltimoreFishbowl':
-            datePortion, timePortion = dateString.split('T')
-            unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
+        elif sourceName in self.baltimoreLikeSources:
+            if len(dateString.split(' ')) == 2:
+                datePortion, timePortion = dateString.split('T')
+                unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
 
-            hours, minutes, seconds = timePortion[:8].split(':')
-            seconds = int(seconds)
-            seconds += (int(hours) * 3600)
-            seconds += (int(minutes) * 60)
-            unixTime += seconds
+                hours, minutes, seconds = timePortion[:8].split(':')
+                seconds = int(seconds)
+                seconds += (int(hours) * 3600)
+                seconds += (int(minutes) * 60)
+                unixTime += seconds
 
-            return unixTime
+                return unixTime
 
         elif sourceName == 'NJ':
             datePortion, timePortion = dateString[:10], dateString[-8:]
@@ -85,20 +88,77 @@ class JsonEnricher():
 
             return unixTime
 
-        elif sourceName == 'NPR':
-            if len(dateString.split(' ')) == 2:
-                datePortion, timePortion = dateString.split('T')
-                unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
+        elif sourceName == 'PGPD':
+            weekDay, month, day, year = dateString.split(' ')
+            monthNum = str(self.monthMap[month.lower()[:3]])
+            day = day.replace(',', '')
+            datePortion = year + '-' + monthNum + '-' + day
+            unixTime = time.mktime(datetime.datetime.strptime(datePortion, "%Y-%m-%d").timetuple())
 
-                hours, minutes, seconds = timePortion[:8].split(':')
-                seconds = int(seconds)
-                seconds += (int(hours) * 3600)
-                seconds += (int(minutes) * 60)
-                unixTime += seconds
+            return unixTime
+
+        elif sourceName == 'NBC_PG':
+            return None
+
+        elif sourceName == 'WJZ':
+            if len(dateString.split(' ')) == 6:
+                month, day, year, at, timeA, timeB = dateString.split(' ')
+                monthNum = str(self.monthMap[month.lower()[:3]])
+                day = day.replace(',', '')
+                slashDate = day + '/' + monthNum + '/' + year
+                print(slashDate)
+                unixTime = time.mktime(datetime.datetime.strptime(slashDate, "%d/%m/%Y").timetuple())
+
+                hours = int(timeA.split(':')[0])
+                if timeB.lower() == 'pm':
+                    hours += 12
+                minutes = int(timeA.split(':')[1])
+                hours *= 3600
+                minutes *= 60
+                unixTime += (hours + minutes)
+
+                return unixTime
+
+        elif sourceName == 'WKYT':
+            if len(dateString.split(' ')) == 8:
+                published, month, day, year, at, timeA, timeB, timezone = dateString.split(' ')
+                monthNum = str(self.monthMap[month.lower()[:3]])
+                day = day.replace(',', '')
+                slashDate = day + '/' + monthNum + '/' + year
+                print(slashDate)
+                unixTime = time.mktime(datetime.datetime.strptime(slashDate, "%d/%m/%Y").timetuple())
+
+                hours = int(timeA.split(':')[0])
+                if timeB.lower() == 'pm':
+                    hours += 12
+                minutes = int(timeA.split(':')[1])
+                hours *= 3600
+                minutes *= 60
+                unixTime += (hours + minutes)
+
+                return unixTime
+
+        elif sourceName == 'WMAR':
+            if len(dateString.strip().split(' ')) == 5:
+                timeA, timeB, month, day, year = dateString.strip().split(' ')
+                monthNum = str(self.monthMap[month.lower()[:3]])
+                timeB = timeB.replace(',', '')
+                day = day.replace(',', '')
+                slashDate = day + '/' + monthNum + '/' + year
+                print(slashDate)
+                unixTime = time.mktime(datetime.datetime.strptime(slashDate, "%d/%m/%Y").timetuple())
+
+                hours = int(timeA.split(':')[0])
+                if timeB.lower() == 'pm':
+                    hours += 12
+                minutes = int(timeA.split(':')[1])
+                hours *= 3600
+                minutes *= 60
+                unixTime += (hours + minutes)
 
                 return unixTime
         
-        return 0
+        return None
 
     def enrich_json(self, artDict, sourceName):
         artText = artDict['body']
@@ -188,6 +248,9 @@ class JsonEnricher():
 
             artDict['date'] = self.get_unix_time(artDict['date'], sourceName)
             artDict['access_date']  = self.get_unix_time(artDict['access_date'], BaltimoreFishbowl)
+
+            if artDict['date'] is None:
+                artDict['date'] = artDict['access_date']
         
         return artDict
 
