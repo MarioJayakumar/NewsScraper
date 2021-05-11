@@ -252,8 +252,8 @@ class JsonEnricher():
             if artDict['date'] is None:
                 artDict['date'] = artDict['access_date']
         
-        return artDict
-
+            return artDict
+        return None
 
 
 if __name__ == "__main__":

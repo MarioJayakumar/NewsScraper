@@ -74,8 +74,9 @@ class GenericNewsSpider(scrapy.Spider):
 
             output_json = self.enricher.enrich_json(output_json, self.name)
 
-            with open(output_name, "w+") as output_fh:
-                json.dump(output_json, output_fh)
+            if output_json is not None:
+                with open(output_name, "w+") as output_fh:
+                    json.dump(output_json, output_fh)
 
         # follow links in page
         for link in self.get_response_href_list(response):
