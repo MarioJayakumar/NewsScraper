@@ -1,4 +1,4 @@
-# NewsScraper Project
+# NewsScraper Dashboard
 
 
 ## Usage
@@ -15,25 +15,32 @@ Spiders:
 
 ABCSpider-> ABC Go News
 
+AfroSpider -> afro.com
+
 BaltimoreFishbowlSpider -> baltimorefishbowl.com
 
+BaltimoreJewishTimesSpider -> www.jewishtimes.com
+
+FoxBaltimoreSpider -> www.foxbaltimore.com
+
 CNNSpider -> cnn.com
+
+NBCPGSpider -> www.nbcwashington.com/news/local/prince-georges-county/
 
 NJSpider -> nj.com
 
 NPRSpider -> npr.org
 
+PGPDSpider -> pgpolice.blogspot.com
 
-The spider crawling policy is fairly straightforward. Any hyperlinks on a webpage are recursively explored. If a visited page is an article, the text content of the page is saved to a json file. The json file will have a file name which matches the article title, and the article title and article text are stored in the json.
+WBALTVSpider -> www.wbaltv.com
 
-## Spider Issues
+WJLASpider -> wjla.com
 
-Captured text is not sanitized, file titles can be poorly formatted
+WJZSpider -> baltimore.cbslocal.com
 
-Scrapy spiders are started via driver script, can probably utilize scrapy built in methods instead
+WKYTSpider -> www.wkyt.com
 
-Along with scraped news articles, non-news articles like privacy policies and terms of use are scraped
+WMARSpider -> www.wmar2news.com/news/
 
-No resource limits enforced on spiders while crawling
 
-Pretty poor code quality
