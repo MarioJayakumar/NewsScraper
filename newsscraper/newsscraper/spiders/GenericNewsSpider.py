@@ -5,10 +5,16 @@ import re
 import json
 import datetime
 from scrapy_selenium import SeleniumRequest
+import uuid
+from .filter_articles import JsonEnricher
 
 # command line args
 class GenericNewsSpider(scrapy.Spider):
     doNotScrape = [] #list of regex paths
+
+    def __init__(self, **kwargs):
+        self.enricher = JsonEnricher()
+        super().__init__(**kwargs)
 
     def start_requests(self):
         yield SeleniumRequest(url=self.starturl, wait_time=3, callback=self.parse)
@@ -54,19 +60,23 @@ class GenericNewsSpider(scrapy.Spider):
 
             pub_date = self.get_response_publication_date(response)
         
-            filename = headline.replace(" ", "").replace("\'", "").replace(".", "").replace('\r', "").replace("\n", "")
-            output_name = "Scraped/" + self.name + "/" + filename + ".json"
+            unique_id = uuid.uuid4()
+            output_name = "Scraped/" + self.name + "/" + str(unique_id) + ".json"
             output_json = {}
             output_json["title"] = headline
             output_json["body"] = final_text
             output_json["url"] = response.request.url
             output_json["date"] = pub_date
+            output_json['UUID'] = str(unique_id)
 
             local_time = datetime.datetime.now().isoformat()
             output_json["access_date"] = local_time
 
-            with open(output_name, "w+") as output_fh:
-                json.dump(output_json, output_fh)
+            output_json = self.enricher.enrich_json(output_json, self.name)
+
+            if output_json is not None:
+                with open(output_name, "w+") as output_fh:
+                    json.dump(output_json, output_fh)
 
         # follow links in page
         for link in self.get_response_href_list(response):

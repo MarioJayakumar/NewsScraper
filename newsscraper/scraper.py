@@ -5,6 +5,7 @@ import json
 from scrapy_selenium import SeleniumRequest
 from newsscraper.spiders.CNNSpider import CNNSpider
 from newsscraper.spiders.ABCSpider import ABCSpider
+from newsscraper.spiders.AfroSpider import AfroSpider
 from newsscraper.spiders.BaltimoreFishbowlSpider import BaltimoreFishbowlSpider
 from newsscraper.spiders.NBC_PGSpider import NBC_PGSpider
 from newsscraper.spiders.NJSpider import NJSpider
@@ -75,5 +76,5 @@ if __name__ == "__main__":
         process.crawl(WJZSpider)
         process.crawl(WKYTSpider)
         process.crawl(WMARSpider)
-        process.crawl(WTOP_PGSpider)
+        #process.crawl(WTOP_PGSpider)
         process.start()
